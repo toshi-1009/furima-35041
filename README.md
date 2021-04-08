@@ -49,7 +49,7 @@ has_one :address
 |colum             | Type      | Options           |
 | -----------------| ----------|-------------------|
 | postal_code      | string    | null: false       |
-| shipping_area_id | string    | null: false       |
+| shipping_area_id | integer   | null: false       |
 | municipalities   | string    | null: false       |
 | address          | string    | null: false       |
 | building_name    | string    |                   |
