@@ -22,23 +22,23 @@ has_many :orders
 |colum                 | Type     | Options           |
 | ---------------------|--------- |------------------ |
 | product_name         | string   | null: false       |
-| description          | string   | null: false       |
+| description          | text     | null: false       |
 | category_id          | integer  | null: false       |
 | product_state_id     | integer  | null: false       |
 | shipping_charges_id  | integer  | null: false       |
 | shipping_area_id     | integer  | null: false       |
 | shipping_day_id      | integer  | null: false       |
 | selling_price        | integer  | null: false       |
-| user_id              |reference | foreign_key: true |
+| user                 |references | foreign_key: true |
  
 belongs_to :user
 has_one :order
 
  ## ordersテーブル
-|colum | Type      | Options           |
-| -----|---------- |------------------ |
-| user | reference | foreign_key: true |
-| item | reference | foreign_key: true |
+|colum | Type       | Options           |
+| -----|----------- |------------------ |
+| user | references | foreign_key: true |
+| item | references | foreign_key: true |
 
 belongs_to :item
 belongs_to :user
@@ -46,12 +46,13 @@ has_one :address
 
 
 ## addressesテーブル
-| postal_code      | integer | null: false |
-| -----------------| --------|-------------|
-| shipping_area_id | integer | null: false |
-| municipalities   | string  | null: false |
-| address          | integer | null: false |
-| building_name    | string  |             |
-| phone_number     | integer | null: false |
-
+|colum             | Type      | Options           |
+| -----------------| ----------|-------------------|
+| postal_code      | string    | null: false       |
+| shipping_area_id | string    | null: false       |
+| municipalities   | string    | null: false       |
+| address          | string    | null: false       |
+| building_name    | string    |                   |
+| phone_number     | string    | null: false       |
+| order            |references | foreign_key: true |
 belongs_to :order
