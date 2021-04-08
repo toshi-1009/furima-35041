@@ -1,24 +1,60 @@
 # README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## usersテーブル
 
-Things you may want to cover:
+|colum               | Type    | Options                   |
+| -------------------|-------- |-------------------------- |
+| nickname           | string  | nul: false                |
+| email              | string  | null: false, unique: true |
+| encrypted_password | string  | null: false               |
+| first_name         | string  | null: false               |
+| last_name          | string  | null: false               |
+| first_name_kana    | string  | null: false               |
+| last_name_kana     | string  | null: false               |
+| birthday           | date    | null: false               |
 
-* Ruby version
+### Association
+has_many :items
+has_many :orders
 
-* System dependencies
+## itemsテーブル
 
-* Configuration
+|colum                 | Type     | Options           |
+| ---------------------|--------- |------------------ |
+| product_name         | string   | null: false       |
+| description          | text     | null: false       |
+| category_id          | integer  | null: false       |
+| product_state_id     | integer  | null: false       |
+| shipping_charges_id  | integer  | null: false       |
+| shipping_area_id     | integer  | null: false       |
+| shipping_day_id      | integer  | null: false       |
+| selling_price        | integer  | null: false       |
+| user                 |references | foreign_key: true |
+ 
+belongs_to :user
+has_one :order
 
-* Database creation
+ ## ordersテーブル
+|colum | Type       | Options           |
+| -----|----------- |------------------ |
+| user | references | foreign_key: true |
+| item | references | foreign_key: true |
 
-* Database initialization
+belongs_to :item
+belongs_to :user
+has_one :address
 
-* How to run the test suite
 
-* Services (job queues, cache servers, search engines, etc.)
+## addressesテーブル
+|colum             | Type      | Options           |
+| -----------------| ----------|-------------------|
+| postal_code      | string    | null: false       |
+| shipping_area_id | integer   | null: false       |
+| municipalities   | string    | null: false       |
+| address          | string    | null: false       |
+| building_name    | string    |                   |
+| phone_number     | string    | null: false       |
+| order            |references | foreign_key: true |
 
-* Deployment instructions
-
-* ...
+belongs_to :order
