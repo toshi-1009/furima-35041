@@ -4,15 +4,23 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
-  validates :nickname, presence: true
-  validates :email, presence: true
-  validates :encrypted_password, presence: true, length: { minimum: 6 }
-  validates :first_name, format: { with: /\A([ぁ-んァ-ン一-龥]|ー)+\z/ }, presence: true
-  validates :last_name, format: { with: /\A([ぁ-んァ-ン一-龥]|ー)+\z/ }, presence: true
-  validates :first_name_kana, format: { with: /\A([ァ-ン]|ー)+\z/ }, presence: true
-  validates :last_name_kana, format: { with: /\A([ァ-ン]|ー)+\z/ }, presence: true
-  validates :birthday, presence: true
+  with_options presence: true do
+    validates :nickname
+    validates :email
+    validates :encrypted_password, length: { minimum: 6 }
+    with_options format: { with: /\A[ぁ-んァ-ン一-龥々ー]+\z/ } do
+      validates :first_name
+      validates :last_name
+    end
 
-  PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
-  validates_format_of :password, with: PASSWORD_REGEX
+    with_options format: { with: /\A([ァ-ン]|ー)+\z/ } do
+      validates :first_name_kana
+      validates :last_name_kana
+    end
+
+    validates :birthday
+
+    PASSWORD_REGEX = /\A(?=.*?[a-z])(?=.*?\d)[a-z\d]+\z/i.freeze
+    validates_format_of :password, with: PASSWORD_REGEX
+  end
 end
