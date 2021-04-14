@@ -19,7 +19,7 @@ class Item < ApplicationRecord
       validates :shipping_day_id
     end
     validates :selling_price, format: { with: /\A[0-9]+\z/ }, length: { minimum: 3, maximum: 7 }, numericality: { only_integer: true,
-                                                                                                                  greater_than: 300, less_than: 1_000_000 }
+                                                                                                                  greater_than: 299, less_than: 1_000_000 }
     validates :image
   end
 end

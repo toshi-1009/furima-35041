@@ -52,25 +52,50 @@ RSpec.describe Item, type: :model do
       @item.valid?
       expect(@item.errors.full_messages).to include("Category can't be blank", 'Category is not a number')
     end
+    it '商品カテゴリー:1を選択した場合、登録できない' do
+      @item.category_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Category must be other than 1')
+    end
     it '商品状態についてが空だと登録できない' do
       @item.product_state_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include("Product state can't be blank", 'Product state is not a number')
+    end
+    it '商品状態:1を選択した場合、登録できない' do
+      @item.product_state_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Product state must be other than 1')
     end
     it '配送料の負担についてが空だと登録できない' do
       @item.shipping_charges_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include("Shipping charges can't be blank", 'Shipping charges is not a number')
     end
+    it '配送料の負担:1を選択した場合、登録できない' do
+      @item.shipping_charges_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Shipping charges must be other than 1')
+    end
     it '発送元の地域についてが空だと登録できない' do
       @item.shipping_area_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include("Shipping area can't be blank", 'Shipping area is not a number')
     end
+    it '発送元の地域:1を選択した場合、登録できない' do
+      @item.shipping_area_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Shipping area must be other than 1')
+    end
     it '発送までの日数についてが空だと登録できない' do
       @item.shipping_day_id = ''
       @item.valid?
       expect(@item.errors.full_messages).to include("Shipping day can't be blank", 'Shipping day is not a number')
+    end
+    it '発送までの日数:1を選択した場合、登録できない' do
+      @item.shipping_day_id = 1
+      @item.valid?
+      expect(@item.errors.full_messages).to include('Shipping day must be other than 1')
     end
     it '販売価格が空だと登録できない' do
       @item.selling_price = ''
@@ -78,12 +103,12 @@ RSpec.describe Item, type: :model do
       expect(@item.errors.full_messages).to include("Selling price can't be blank", 'Selling price is invalid')
     end
     it '販売価格が300円未満だと登録できない' do
-      @item.selling_price = '299'
+      @item.selling_price = 299
       @item.valid?
-      expect(@item.errors.full_messages).to include('Selling price must be greater than 300')
+      expect(@item.errors.full_messages).to include('Selling price must be greater than 299')
     end
     it '販売価格が1,000,000円以上だと登録できない' do
-      @item.selling_price = '1000001'
+      @item.selling_price = 1_000_001
       @item.valid?
       expect(@item.errors.full_messages).to include('Selling price must be less than 1000000')
     end
