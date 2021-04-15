@@ -123,11 +123,13 @@
     <h2 class='title'>ピックアップカテゴリー</h2>
     <%= link_to '新規投稿商品', new_item_path, class: "subtitle" %>
     </div>
+    <% if @items[0] != nil %>
     <ul class='item-lists'>
       <% @items.each do |item| %>
       <li class='list'>
         <div class='item-img-content'> 
         <%= image_tag item.image, class: "item-img" %>
+        <%# <%= link_to image_tag(prototype.image, class: :card__img ), prototype_path(prototype)%> 
           <%# *商品が売れたらsoid outを表示（購入機能実装後に実装する） %>
           <%# <div class='sold-out'>
           <span>Sold Out!!</span>
@@ -139,14 +141,38 @@
               <div class='item-price'>
                 <span><%= item.selling_price %><br> <%= item.shipping_charges.name %></span>  
                 <div class='star-btn'> 
-              
                 </div>
               </div>
           </div>          
         </div>
       </li>
     <% end %>
+
+    <% else %>
+      <%# 商品がない場合は以下のダミー商品が表示されるようにしましょう %>
+      <%# 商品がある場合は表示されないようにしましょう %>
+      <li class='list'>
+        <%= link_to '#' do %>
+        <%= image_tag "https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg", class: "item-img" %> 
+        <div class='item-info'> 
+          <h3 class='item-name'> 
+             商品を出品してね！
+           </h3> 
+           <div class='item-price'> 
+             <span>99999999円<br>(税込み)</span>
+            <div class='star-btn'>
+              <%= image_tag "star.png", class:"star-icon" %> 
+              <span class='star-count'>0</span> 
+             </div> 
+          </div> 
+        </div> 
+        <% end %> 
+      </li>  
+      <%# //商品がある場合は表示されないようにしましょう %>
+      <%# //商品がない場合は以下のダミー商品が表示されるようにしましょう %>
+  
     </ul>
+    <% end %>
     </div>
   </div>
 
