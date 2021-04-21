@@ -130,10 +130,12 @@
         <div class='item-img-content'> 
         <%= link_to image_tag(item.image,class: "item-img") , item_path(item), method: :get %>
         
-          <%# *商品が売れたらsoid outを表示（購入機能実装後に実装する） %>
-          <%# <div class='sold-out'>
+        <% if item.order.present? %> 
+          <div class='sold-out'>
           <span>Sold Out!!</span>
-          </div> %>
+          </div> 
+        <% end %>
+        
           <div class='item-info'>      
           <h3 class='item-name'>
             <%= item.product_name %>
@@ -175,7 +177,7 @@
   </div>
 
 </div>
-<%= link_to('#', class: 'purchase-btn') do %>
+<%= link_to( new_item_path, class: 'purchase-btn') do %>
   <span class='purchase-btn-text'>出品する</span>
   <%= image_tag 'icon_camera.png' , size: '185x50' ,class: "purchase-btn-icon" %>
 <% end %>
