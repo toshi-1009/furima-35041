@@ -9,10 +9,9 @@ class OrderAddress
     validates :postal_code, format: { with: /\A[0-9]{3}-[0-9]{4}\z/, message: 'Input correctly' }
     validates :municipalities
     validates :address
-    validates :phone_number, format: { with: /\A[0-9]{11}\z/, message: 'Input only number' }
-    # validates :order_id
+    validates :phone_number, format: { with: /\A[0-9]{10,11}\z/, message: 'Input only number' }
     validates :shipping_area_id, numericality: { other_than: 1, message: 'Select' }
-    validates :token, presence: true
+    validates :token
   end
   def save
     order = Order.create(user_id: user_id, item_id: item_id)
